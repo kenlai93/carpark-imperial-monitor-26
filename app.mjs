@@ -1,9 +1,13 @@
 import axios from "axios";
 import { setTimeout } from "timers/promises";
+import dayjs from "dayjs";
 
 const VEHICLE_TYPE_MOTORCYCLE = "5d709ef4e250c856821e57d8";
 
 const main = async () => {
+    const start = dayjs(new Date());
+    const end = start.endOf("month");
+
     const { data: spacePaginationResponse } = await axios.get(
         "https://api-enterprise.letspark.com.hk/api/spaces/v2/5d6faa5ae250c83ffe1e5714",
         {
@@ -12,8 +16,8 @@ const main = async () => {
                 length: 9999,
                 page: 1,
                 vehicle: VEHICLE_TYPE_MOTORCYCLE,
-                start: "2024-03-07T00:00",
-                end: "2024-03-31T23:59",
+                start: start.format("YYYY-MM-DDTHH:mm"),
+                end: end.format("YYYY-MM-DDTHH:mm"),
             },
         }
     );
